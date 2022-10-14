@@ -1,6 +1,6 @@
 import string
 import numpy as np
-
+import streamlit as st
 
 Ref = {v: k for k, v in enumerate(string.ascii_lowercase)}
 
@@ -15,4 +15,18 @@ for w in content:
 
 pctbl = 100 * MAT / MAT.sum(axis=1, keepdims=True)
 pctbp = 100 * MAT / MAT.sum(axis=0, keepdims=True)
+
+"""
+# Letter frequency
+"""
+
+LT, PT = st.tabs(["By Letter", "By Position"])
+
+with LT:
+    LSL = st.select_slider('select the letter', options=string.ascii_lowercase)
+    st.bar_chart(MAT[Ref[LSL]])
+
+with PT:
+    PSL = st.slider('select the position', 0, 32)
+    st.bar_chart(MAT[:, PSL])
 
